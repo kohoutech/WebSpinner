@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSpinner", "WebSpinner\WebSpinner.csproj", "{B985323A-9AE6-4E54-8895-55168F80B871}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B985323A-9AE6-4E54-8895-55168F80B871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B985323A-9AE6-4E54-8895-55168F80B871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B985323A-9AE6-4E54-8895-55168F80B871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B985323A-9AE6-4E54-8895-55168F80B871}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05409791-2D3E-4D69-B68D-272D3EE34FF5}
+	EndGlobalSection
+EndGlobal
