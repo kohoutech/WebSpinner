@@ -28,20 +28,33 @@ namespace WebSpinner.Silk
     public class WebPage
     {
         public String name;
-        public String filename;
         public WebFolder folder;
 
         public String template;
         public String content;
 
-        public WebPage(String _name, String _filename, WebFolder _folder, String _template, String _content)
+        public WebPage(String _html, WebFolder _folder, String _template, String _content)
         {
-            name = _name;
-            filename = _filename;
+            name = _html;
             folder = _folder;
             template = _template;
             content = _content;
         }
 
+        public static WebPage loadPage(EnamlData silk, string path, string name, WebFolder folder)
+        {
+            String fullpath = path + "." + name;
+            String html = silk.getStringValue(fullpath + ".html", "");
+            String template = silk.getStringValue(fullpath + ".template", "");
+            String content = silk.getStringValue(fullpath + ".content", "");
+
+            WebPage page = new WebPage(html, folder, template, content);
+            return page;
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

@@ -28,14 +28,54 @@ namespace WebSpinner.Silk
 {
     public class WebFolder
     {
+        public String name;
         public WebFolder parent;
         public List<WebPage> pages;
         public List<WebResource> resources;
         public List<WebFolder> folders;
 
-        public WebFolder(WebFolder _parent)
+        public WebFolder(String _name, WebFolder _parent)
         {
+            name = _name;
             parent = _parent;
+            pages = new List<WebPage>();
+            resources = new List<WebResource>();
+            folders = new List<WebFolder>();
+        }
+
+        public static WebFolder loadFolder(EnamlData silk, string path, string name, WebFolder parent)
+        {
+            WebFolder folder = new WebFolder(name, parent);
+
+            string fullpath = (path.Length > 0) ? path + "." + name + "." : "";
+
+            List<String> pagenames = silk.getPathKeys(fullpath + "pages");
+            foreach (String pagename in pagenames)
+            {
+                WebPage page = WebPage.loadPage(silk, fullpath + "pages", pagename, folder);
+                folder.pages.Add(page);
+            }
+
+            List<String> resourcenames = silk.getPathKeys(fullpath + "resources");
+            foreach (String resname in resourcenames)
+            {
+                WebResource resource = WebResource.loadResource(silk, fullpath + "resources", resname, folder);
+                folder.resources.Add(resource);
+            }
+
+            List<String> foldernames = silk.getPathKeys(fullpath + "folders");
+            foreach (String foldername in foldernames)
+            {
+                WebFolder subfolder = WebFolder.loadFolder(silk, fullpath + "folders", foldername, folder);
+                folder.folders.Add(subfolder);
+            }
+
+            return folder;
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
 
     }

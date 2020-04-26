@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WebSpinner.Silk;
 
 namespace WebSpinner
 {
@@ -37,9 +38,6 @@ namespace WebSpinner
             InitializeComponent();
 
             spinner = new Spinner(this);
-
-            TreeNode pageNode = new TreeNode("index");
-            siteTreeView.Nodes.Add(pageNode);
         }
 
         //- file menu ---------------------------------------------------------
@@ -53,6 +51,7 @@ namespace WebSpinner
         {
             String filename = "transonic.silk";
             spinner.openFile(filename);
+            this.Text = "WebSpinner [" + filename + "]";
         }
 
         private void saveFileMenuItem_Click(object sender, EventArgs e)
@@ -117,6 +116,48 @@ namespace WebSpinner
             MessageBox.Show(msg, "About");
         }
 
+        //- tree view ---------------------------------------------------------
+
+        public TreeNode AddFolder(WebFolder folder, TreeNode folderView)
+        {
+            TreeNode node = new TreeNode(folder.name);
+            node.Tag = folder;
+            node.ForeColor = Color.Blue;
+            if (folderView == null)
+            {
+                siteTreeView.Nodes.Add(node);
+            }
+            else
+            {
+                folderView.Nodes.Add(node);
+            }
+            return node;
+        }
+
+        public void AddPage(WebPage page, TreeNode folderView)
+        {
+            TreeNode node = new TreeNode(page.name);
+            node.Tag = page;
+            folderView.Nodes.Add(node);
+        }
+
+        public void AddResources(WebResource resource, TreeNode folderView)
+        {
+            TreeNode node = new TreeNode(resource.filename);
+            node.Tag = resource;
+            node.ForeColor = Color.Red;
+            folderView.Nodes.Add(node);
+        }
+
+        private void siteTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+        }
+
+        private void siteTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+        }
     }
 
 }

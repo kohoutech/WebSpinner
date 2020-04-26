@@ -33,6 +33,20 @@ namespace WebSpinner.Silk
         public String prodroot;
         public WebFolder root;
 
+        public static WebSite loadSilkFile(string filename)
+        {
+            WebSite site = new WebSite();
+
+            EnamlData silk = EnamlData.loadFromFile(filename);
+
+            site.version = silk.getStringValue("Silk.version", "");
+            site.devroot = silk.getStringValue("Silk.devroot", "");
+            site.prodroot = silk.getStringValue("Silk.prodroot", "");
+
+            site.root = WebFolder.loadFolder(silk, "", "root", null);
+
+            return site;
+        }
 
     }
 }

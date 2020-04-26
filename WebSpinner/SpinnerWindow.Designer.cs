@@ -314,6 +314,8 @@
             this.siteTreeView.Name = "siteTreeView";
             this.siteTreeView.Size = new System.Drawing.Size(800, 379);
             this.siteTreeView.TabIndex = 3;
+            this.siteTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseClick);
+            this.siteTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseDoubleClick);
             // 
             // SpinnerWindow
             // 
@@ -324,6 +326,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SpinnerWindow";
             this.Text = "WebSpinner";

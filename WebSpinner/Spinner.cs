@@ -21,26 +21,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Windows.Forms;
 using WebSpinner.Silk;
 
 namespace WebSpinner
 {
     public class Spinner
     {
-        public SpinnerWindow spinnerWindow;
+        public SpinnerWindow spinnerView;
 
         public WebSite website;
 
         public Spinner(SpinnerWindow _spinnerWindow)
         {
-            spinnerWindow = _spinnerWindow;
+            spinnerView = _spinnerWindow;
             website = null;
         }
 
         public void openFile(string filename)
         {
-            
+            website = WebSite.loadSilkFile(filename);
+            TreeNode rootfolderView = spinnerView.AddFolder(website.root, null);
+            BuildSiteView(website.root, rootfolderView);
+        }
+
+        public void BuildSiteView(WebFolder folder, TreeNode folderView)
+        {
+            foreach(WebPage page in folder.pages)
+            {
+                spinnerView.AddPage(page, folderView);
+            }
+
+            foreach (WebResource resource in folder.resources)
+            {
+                spinnerView.AddResources(resource, folderView);
+            }
+
+            foreach (WebFolder f in folder.folders)
+            {
+                TreeNode subfolderView = spinnerView.AddFolder(f, folderView);
+                BuildSiteView(f, subfolderView);
+            }
         }
     }
 }

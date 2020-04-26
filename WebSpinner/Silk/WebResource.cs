@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace WebSpinner.Silk
 {
@@ -29,13 +30,27 @@ namespace WebSpinner.Silk
     {
         public WebFolder folder;
         public string filename;
-        public String path;
+        public String filepath;
 
-        public WebResource(String _name, WebFolder _folder)
+        public WebResource(String _name, String _path, WebFolder _folder)
         {
             filename = _name;
+            filepath = _path;
             folder = _folder;
         }
 
+        public static WebResource loadResource(EnamlData silk, string path, string name, WebFolder folder)
+        {
+            String respath = silk.getStringValue(path + "." + name + ".path", "");
+            String resname = Path.GetFileName(respath);
+            respath = Path.GetDirectoryName(respath);
+            WebResource resource = new WebResource(resname, respath, folder);
+            return resource;
+        }
+
+        public override string ToString()
+        {
+            return filename;
+        }
     }
 }
