@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Origami.ENAML;
 
@@ -29,14 +30,25 @@ namespace WebSpinner.Silk
     public class WebSite
     {
         public String version;
+        public String silkroot;
         public String devroot;
         public String prodroot;
         public WebFolder root;
+
+        public WebSite()
+        {
+            version = "1.0.0";
+            silkroot = "";
+            devroot = "";
+            prodroot = "";
+            root = null;
+        }
 
         public static WebSite loadSilkFile(string filename)
         {
             WebSite site = new WebSite();
 
+            site.silkroot = Path.GetDirectoryName(filename);
             EnamlData silk = EnamlData.loadFromFile(filename);
 
             site.version = silk.getStringValue("Silk.version", "");

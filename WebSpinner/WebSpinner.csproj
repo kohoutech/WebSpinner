@@ -90,4 +90,7 @@
     <Content Include="WebSpinner.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>release.bat</PostBuildEvent>
+  </PropertyGroup>
 </Project>

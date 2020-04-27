@@ -28,7 +28,11 @@ using System.Text;
 
 namespace Panorama.HAML
 {
-    class Generator
+    public class Generator
     {
+        public void generatePage(string template, string content, string folderpath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -28,7 +28,7 @@ using System.Text;
 
 namespace Panorama.HAML
 {
-    class Content
+    public class Content
     {
     }
 }

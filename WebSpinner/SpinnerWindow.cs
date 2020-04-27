@@ -25,6 +25,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+
 using WebSpinner.Silk;
 
 namespace WebSpinner
@@ -49,7 +51,8 @@ namespace WebSpinner
 
         private void openFileMenuItem_Click(object sender, EventArgs e)
         {
-            String filename = "transonic.silk";
+            string[] silkLocation = File.ReadAllLines("test.txt");
+            String filename = silkLocation[0];
             spinner.openFile(filename);
             this.Text = "WebSpinner [" + filename + "]";
         }
@@ -100,12 +103,12 @@ namespace WebSpinner
 
         private void buildWebsiteMenuItem_Click(object sender, EventArgs e)
         {
-
+            spinner.buildWebsite();
         }
 
         private void publishWebsiteMenuItem_Click(object sender, EventArgs e)
         {
-
+            spinner.publishWebsite();
         }
 
         //- help menu ---------------------------------------------------------
