@@ -1,5 +1,5 @@
 ﻿/* ----------------------------------------------------------------------------
-WebSpinner : a website manager
+WebSpinner : a website builder
 Copyright (C) 2005-2020  George E Greaney
 
 This program is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Origami.ENAML;
+using Kohoutech.ENAML;
 
 namespace WebSpinner.Silk
 {
@@ -34,6 +34,10 @@ namespace WebSpinner.Silk
         public List<WebResource> resources;
         public List<WebFolder> folders;
 
+        public WebFolder() : this("none", null)
+        {
+        }
+
         public WebFolder(String _name, WebFolder _parent)
         {
             name = _name;
@@ -43,35 +47,35 @@ namespace WebSpinner.Silk
             folders = new List<WebFolder>();
         }
 
-        public static WebFolder loadFolder(EnamlData silk, string path, string name, WebFolder parent)
-        {
-            WebFolder folder = new WebFolder(name, parent);
+        //public static WebFolder loadFolder(EnamlData silk, string path, string name, WebFolder parent)
+        //{
+        //    WebFolder folder = new WebFolder(name, parent);
 
-            string fullpath = (path.Length > 0) ? path + "." + name + "." : "";
+        //    string fullpath = (path.Length > 0) ? path + "." + name + "." : "";
 
-            List<String> pagenames = silk.getPathKeys(fullpath + "pages");
-            foreach (String pagename in pagenames)
-            {
-                WebPage page = WebPage.loadPage(silk, fullpath + "pages", pagename, folder);
-                folder.pages.Add(page);
-            }
+        //    List<String> pagenames = silk.getPathKeys(fullpath + "pages");
+        //    foreach (String pagename in pagenames)
+        //    {
+        //        WebPage page = WebPage.loadPage(silk, fullpath + "pages", pagename, folder);
+        //        folder.pages.Add(page);
+        //    }
 
-            List<String> resourcenames = silk.getPathKeys(fullpath + "resources");
-            foreach (String resname in resourcenames)
-            {
-                WebResource resource = WebResource.loadResource(silk, fullpath + "resources", resname, folder);
-                folder.resources.Add(resource);
-            }
+        //    List<String> resourcenames = silk.getPathKeys(fullpath + "resources");
+        //    foreach (String resname in resourcenames)
+        //    {
+        //        WebResource resource = WebResource.loadResource(silk, fullpath + "resources", resname, folder);
+        //        folder.resources.Add(resource);
+        //    }
 
-            List<String> foldernames = silk.getPathKeys(fullpath + "folders");
-            foreach (String foldername in foldernames)
-            {
-                WebFolder subfolder = WebFolder.loadFolder(silk, fullpath + "folders", foldername, folder);
-                folder.folders.Add(subfolder);
-            }
+        //    List<String> foldernames = silk.getPathKeys(fullpath + "folders");
+        //    foreach (String foldername in foldernames)
+        //    {
+        //        WebFolder subfolder = WebFolder.loadFolder(silk, fullpath + "folders", foldername, folder);
+        //        folder.folders.Add(subfolder);
+        //    }
 
-            return folder;
-        }
+        //    return folder;
+        //}
 
         public override string ToString()
         {

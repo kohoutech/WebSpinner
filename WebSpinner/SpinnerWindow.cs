@@ -1,5 +1,5 @@
 ﻿/* ----------------------------------------------------------------------------
-WebSpinner : a website manager
+WebSpinner : a website builder
 Copyright (C) 2005-2020  George E Greaney
 
 This program is free software; you can redistribute it and/or
@@ -53,7 +53,7 @@ namespace WebSpinner
         {
             string[] silkLocation = File.ReadAllLines("test.txt");
             String filename = silkLocation[0];
-            spinner.openFile(filename);
+            spinner.loadSilk(filename);
             this.Text = "WebSpinner [" + filename + "]";
         }
 
@@ -115,7 +115,7 @@ namespace WebSpinner
 
         private void aboutHelpMenuItem_Click(object sender, EventArgs e)
         {
-            String msg = "WebSpinner\nversion 1.0.0\n" + "\xA9 Panorama Software 2005-2020\n" + "http://panorama.kohoutech.com";
+            String msg = "WebSpinner\nversion 1.1.0\n" + "\xA9 Panorama Software 2005-2020\n" + "http://panorama.kohoutech.com";
             MessageBox.Show(msg, "About");
         }
 

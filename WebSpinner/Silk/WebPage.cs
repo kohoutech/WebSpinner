@@ -1,5 +1,5 @@
 ﻿/* ----------------------------------------------------------------------------
-WebSpinner : a website manager
+WebSpinner : a website builder
 Copyright (C) 2005-2020  George E Greaney
 
 This program is free software; you can redistribute it and/or
@@ -17,11 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ----------------------------------------------------------------------------*/
 
-using Origami.ENAML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Kohoutech.ENAML;
 
 namespace WebSpinner.Silk
 {
@@ -29,28 +29,31 @@ namespace WebSpinner.Silk
     {
         public String name;
         public WebFolder folder;
-
         public String template;
         public String content;
 
-        public WebPage(String _html, WebFolder _folder, String _template, String _content)
+        public WebPage() : this("none", null, "", "")
         {
-            name = _html;
+        }
+
+            public WebPage(String _name, WebFolder _folder, String _template, String _content)
+        {
+            name = _name;
             folder = _folder;
             template = _template;
             content = _content;
         }
 
-        public static WebPage loadPage(EnamlData silk, string path, string name, WebFolder folder)
-        {
-            String fullpath = path + "." + name;
-            String html = silk.getStringValue(fullpath + ".html", "");
-            String template = silk.getStringValue(fullpath + ".template", "");
-            String content = silk.getStringValue(fullpath + ".content", "");
+        //public static WebPage loadPage(EnamlData silk, string path, string name, WebFolder folder)
+        //{
+        //    String fullpath = path + "." + name;
+        //    String html = silk.getStringValue(fullpath + ".html", "");
+        //    String template = silk.getStringValue(fullpath + ".template", "");
+        //    String content = silk.getStringValue(fullpath + ".content", "");
 
-            WebPage page = new WebPage(html, folder, template, content);
-            return page;
-        }
+        //    WebPage page = new WebPage(html, folder, template, content);
+        //    return page;
+        //}
 
         public override string ToString()
         {

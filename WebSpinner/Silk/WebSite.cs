@@ -1,5 +1,5 @@
 ﻿/* ----------------------------------------------------------------------------
-WebSpinner : a website manager
+WebSpinner : a website builder
 Copyright (C) 2005-2020  George E Greaney
 
 This program is free software; you can redistribute it and/or
@@ -23,42 +23,40 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-using Origami.ENAML;
+using Kohoutech.ENAML;
 
 namespace WebSpinner.Silk
 {
     public class WebSite
     {
         public String version;
-        public String silkroot;
-        public String devroot;
-        public String prodroot;
+        public String buildPath;
+        public String publishPath;
         public WebFolder root;
 
         public WebSite()
         {
             version = "1.0.0";
-            silkroot = "";
-            devroot = "";
-            prodroot = "";
+            buildPath = @"c:\foo\bar";
+            publishPath = @"c:\zon\tar";
             root = null;
         }
 
-        public static WebSite loadSilkFile(string filename)
-        {
-            WebSite site = new WebSite();
+        //public static WebSite loadSilkFile(string filename)
+        //{
+        //    WebSite site = new WebSite();
 
-            site.silkroot = Path.GetDirectoryName(filename);
-            EnamlData silk = EnamlData.loadFromFile(filename);
+        //    site.silkroot = Path.GetDirectoryName(filename);
+        //    EnamlData silk = EnamlData.loadFromFile(filename);
 
-            site.version = silk.getStringValue("Silk.version", "");
-            site.devroot = silk.getStringValue("Silk.devroot", "");
-            site.prodroot = silk.getStringValue("Silk.prodroot", "");
+        //    site.version = silk.getStringValue("Silk.version", "");
+        //    site.buildPath = silk.getStringValue("Silk.devroot", "");
+        //    site.publishPath = silk.getStringValue("Silk.prodroot", "");
 
-            site.root = WebFolder.loadFolder(silk, "", "root", null);
+        //    site.root = WebFolder.loadFolder(silk, "", "root", null);
 
-            return site;
-        }
+        //    return site;
+        //}
 
     }
 }

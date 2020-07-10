@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------------
-Panorama HAML Library
-Copyright (C) 2009-2020  George E Greaney
+Van der Graaf - a static site generator
+Copyright (C) 2005-2020 George E Greaney
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -17,18 +17,24 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ----------------------------------------------------------------------------*/
 
-//HAML - Here's Another Markup Language
-
-//version 1.0.0 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Panorama.HAML
+namespace VDG.Commands
 {
-    public class Template
+    public class DateCmd : Command
     {
+        //using MS date format syntax for now
+        //why reinvent the wheel?
+        public override String run(List<String> args)
+        {
+            String format = args[0];
+            DateTime now = DateTime.Now;
+            String datestr = now.ToString(format);
+
+            return datestr;
+        }
     }
 }

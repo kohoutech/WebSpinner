@@ -1,5 +1,5 @@
 ﻿/* ----------------------------------------------------------------------------
-WebSpinner : a website manager
+WebSpinner : a website builder
 Copyright (C) 2005-2020  George E Greaney
 
 This program is free software; you can redistribute it and/or
@@ -27,28 +27,35 @@ using System.Windows.Forms;
 using System.IO;
 
 using WebSpinner.Silk;
-using Panorama.HAML;
+using VDG;
+using Kohoutech.Jason;
 
 namespace WebSpinner
 {
     public class Spinner
     {
         public SpinnerWindow spinnerView;           //the view
-        public Generator generator;
+        public Vander generator;
         public WebSite website;                     //the model
 
         public Spinner(SpinnerWindow _spinnerWindow)
         {
             spinnerView = _spinnerWindow;
-            generator = new Generator();
-            website = null;
+            generator = new Vander();
+            //website = null;
+            website = new WebSite();
+
+            JasonWriter jason = new JasonWriter();
+            String s = jason.Write(website);
         }
 
         //- website i/o -------------------------------------------------------
 
-        public void openFile(string filename)
+        public void loadSilk(string filename)
         {
-            website = WebSite.loadSilkFile(filename);
+            String jasonData = File.ReadAllText(filename);
+            JasonReader reader = new JasonReader();
+            website = (WebSite)reader.readFrom(jasonData);
             TreeNode rootfolderView = spinnerView.AddFolder(website.root, null);
             buildSiteView(website.root, rootfolderView);
         }
@@ -76,12 +83,12 @@ namespace WebSpinner
 
         public void buildWebsite()
         {
-            buildWebFolder(website.root, website.devroot, ".");
+            buildWebFolder(website.root, website.buildPath, ".");
         }
 
         public void publishWebsite()
         {
-            buildWebFolder(website.root, website.prodroot, ".");
+            buildWebFolder(website.root, website.publishPath, ".");
         }
 
         public void buildWebFolder(WebFolder folder, string siteroot, string folderpath)
@@ -96,18 +103,18 @@ namespace WebSpinner
                 string pagepath = destpath + "\\" + page.name;
                 if (page.template.Length > 0 && page.content.Length > 0)
                 {
-                    generator.generatePage(page.template, page.content, pagepath);
+                    generator.generatePage();
                 }
                 else
                 {
-                    string htmlpath = website.silkroot + "\\" + folderpath + "\\" + page.name;
+                    string htmlpath = "\\" + folderpath + "\\" + page.name;
                     File.Copy(htmlpath, pagepath, true);
                 }
             }
 
             foreach (WebResource resource in folder.resources)
             {
-                string srcpath = website.silkroot + "\\" + resource.filepath + "\\" + resource.filename;
+                string srcpath = resource.filepath + "\\" + resource.filename;
                 string respath = destpath + "\\" + resource.filename;
                 File.Copy(srcpath, respath, true);
             }

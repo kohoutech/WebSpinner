@@ -57,9 +57,9 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.newPageButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.siteTreeView = new System.Windows.Forms.TreeView();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.siteTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -107,8 +107,8 @@
             this.newFileMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newFileMenuItem.Name = "newFileMenuItem";
             this.newFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newFileMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.newFileMenuItem.Text = "&New";
+            this.newFileMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.newFileMenuItem.Text = "&New Website";
             this.newFileMenuItem.Click += new System.EventHandler(this.newFileMenuItem_Click);
             // 
             // openFileMenuItem
@@ -118,14 +118,14 @@
             this.openFileMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openFileMenuItem.Name = "openFileMenuItem";
             this.openFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openFileMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.openFileMenuItem.Text = "&Open";
+            this.openFileMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.openFileMenuItem.Text = "&Open Website";
             this.openFileMenuItem.Click += new System.EventHandler(this.openFileMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(188, 6);
             // 
             // saveFileMenuItem
             // 
@@ -134,26 +134,26 @@
             this.saveFileMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveFileMenuItem.Name = "saveFileMenuItem";
             this.saveFileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveFileMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.saveFileMenuItem.Text = "&Save";
+            this.saveFileMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.saveFileMenuItem.Text = "&Save Website";
             this.saveFileMenuItem.Click += new System.EventHandler(this.saveFileMenuItem_Click);
             // 
             // saveAsFileMenuItem
             // 
             this.saveAsFileMenuItem.Name = "saveAsFileMenuItem";
-            this.saveAsFileMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.saveAsFileMenuItem.Text = "Save &As";
+            this.saveAsFileMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.saveAsFileMenuItem.Text = "Save Website &As";
             this.saveAsFileMenuItem.Click += new System.EventHandler(this.saveAsFileMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
             // 
             // exitFileMenuItem
             // 
             this.exitFileMenuItem.Name = "exitFileMenuItem";
-            this.exitFileMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitFileMenuItem.Size = new System.Drawing.Size(191, 22);
             this.exitFileMenuItem.Text = "E&xit";
             this.exitFileMenuItem.Click += new System.EventHandler(this.exitFileMenuItem_Click);
             // 
@@ -173,15 +173,15 @@
             // newPageMenuItem
             // 
             this.newPageMenuItem.Name = "newPageMenuItem";
-            this.newPageMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.newPageMenuItem.Text = "&New";
+            this.newPageMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newPageMenuItem.Text = "&New Page";
             this.newPageMenuItem.Click += new System.EventHandler(this.newPageMenuItem_Click);
             // 
             // editPageMenuItem
             // 
             this.editPageMenuItem.Name = "editPageMenuItem";
-            this.editPageMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.editPageMenuItem.Text = "&Edit";
+            this.editPageMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editPageMenuItem.Text = "&Edit Page";
             this.editPageMenuItem.Click += new System.EventHandler(this.editPageMenuItem_Click);
             // 
             // deletePageMenuItem
@@ -190,19 +190,19 @@
             this.deletePageMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deletePageMenuItem.Image")));
             this.deletePageMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deletePageMenuItem.Name = "deletePageMenuItem";
-            this.deletePageMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.deletePageMenuItem.Text = "&Delete";
+            this.deletePageMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deletePageMenuItem.Text = "&Delete Page";
             this.deletePageMenuItem.Click += new System.EventHandler(this.deletePageMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(131, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // newFolderMenuItem
             // 
             this.newFolderMenuItem.Name = "newFolderMenuItem";
-            this.newFolderMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.newFolderMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newFolderMenuItem.Text = "New &Folder";
             this.newFolderMenuItem.Click += new System.EventHandler(this.newFolderMenuItem_Click);
             // 
@@ -219,22 +219,22 @@
             // editWebsiteMenuItem
             // 
             this.editWebsiteMenuItem.Name = "editWebsiteMenuItem";
-            this.editWebsiteMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.editWebsiteMenuItem.Text = "&Edit";
+            this.editWebsiteMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editWebsiteMenuItem.Text = "&Edit Website";
             this.editWebsiteMenuItem.Click += new System.EventHandler(this.editWebsiteMenuItem_Click);
             // 
             // buildWebsiteMenuItem
             // 
             this.buildWebsiteMenuItem.Name = "buildWebsiteMenuItem";
-            this.buildWebsiteMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.buildWebsiteMenuItem.Text = "&Build";
+            this.buildWebsiteMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.buildWebsiteMenuItem.Text = "&Build Website";
             this.buildWebsiteMenuItem.Click += new System.EventHandler(this.buildWebsiteMenuItem_Click);
             // 
             // publishWebsiteMenuItem
             // 
             this.publishWebsiteMenuItem.Name = "publishWebsiteMenuItem";
-            this.publishWebsiteMenuItem.Size = new System.Drawing.Size(113, 22);
-            this.publishWebsiteMenuItem.Text = "&Publish";
+            this.publishWebsiteMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.publishWebsiteMenuItem.Text = "&Publish Website";
             this.publishWebsiteMenuItem.Click += new System.EventHandler(this.publishWebsiteMenuItem_Click);
             // 
             // helpMenuItem
@@ -248,7 +248,7 @@
             // aboutHelpMenuItem
             // 
             this.aboutHelpMenuItem.Name = "aboutHelpMenuItem";
-            this.aboutHelpMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.aboutHelpMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutHelpMenuItem.Text = "&About...";
             this.aboutHelpMenuItem.Click += new System.EventHandler(this.aboutHelpMenuItem_Click);
             // 
@@ -311,16 +311,6 @@
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
-            // siteTreeView
-            // 
-            this.siteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.siteTreeView.Location = new System.Drawing.Point(0, 49);
-            this.siteTreeView.Name = "siteTreeView";
-            this.siteTreeView.Size = new System.Drawing.Size(800, 379);
-            this.siteTreeView.TabIndex = 3;
-            this.siteTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseClick);
-            this.siteTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseDoubleClick);
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -340,6 +330,16 @@
             this.toolStripButton2.Size = new System.Drawing.Size(50, 22);
             this.toolStripButton2.Text = "Publish";
             this.toolStripButton2.Click += new System.EventHandler(this.publishWebsiteMenuItem_Click);
+            // 
+            // siteTreeView
+            // 
+            this.siteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.siteTreeView.Location = new System.Drawing.Point(0, 49);
+            this.siteTreeView.Name = "siteTreeView";
+            this.siteTreeView.Size = new System.Drawing.Size(800, 379);
+            this.siteTreeView.TabIndex = 3;
+            this.siteTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseClick);
+            this.siteTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.siteTreeView_NodeMouseDoubleClick);
             // 
             // SpinnerWindow
             // 
