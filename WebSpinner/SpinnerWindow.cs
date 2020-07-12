@@ -27,6 +27,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
+using WebSpinner.SiteView;
 using WebSpinner.Silk;
 
 namespace WebSpinner
@@ -51,7 +52,7 @@ namespace WebSpinner
 
         private void openFileMenuItem_Click(object sender, EventArgs e)
         {
-            string[] silkLocation = File.ReadAllLines("test.txt");
+            string[] silkLocation = File.ReadAllLines("test.txt");      //for debugging
             String filename = silkLocation[0];
             spinner.loadSilk(filename);
             this.Text = "WebSpinner [" + filename + "]";
@@ -59,7 +60,9 @@ namespace WebSpinner
 
         private void saveFileMenuItem_Click(object sender, EventArgs e)
         {
-
+            string[] silkLocation = File.ReadAllLines("test.txt");
+            String filename = silkLocation[1];
+            spinner.saveSilk(filename);
         }
 
         private void saveAsFileMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +121,7 @@ namespace WebSpinner
             String msg = "WebSpinner\nversion 1.1.0\n" + "\xA9 Panorama Software 2005-2020\n" + "http://panorama.kohoutech.com";
             MessageBox.Show(msg, "About");
         }
+
     }
 
 }

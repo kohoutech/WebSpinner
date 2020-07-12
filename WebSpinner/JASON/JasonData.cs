@@ -30,14 +30,14 @@ namespace Kohoutech.Jason
 {
     public class JasonData
     {
-        public static JasonData curData;
         public JasonValue root;
-        public Dictionary<int, Object> objects;
+        public static JasonData curData;                //static field to point to jason data we're currently building
+        public Dictionary<int, Object> objects;         //dict of objs for resolving obj refs during build
 
         public JasonData(JasonValue _root)
         {
-            curData = this;
             root = _root;
+            curData = this;
             objects = new Dictionary<int, object>();
         }
 
@@ -45,6 +45,15 @@ namespace Kohoutech.Jason
         {
             Object obj = root.build();
             return obj;
+        }
+
+        public String writeData(JasonData jd)
+        {
+            StringBuilder outText = new StringBuilder();
+            String indent = "";
+            jd.root.write(outText, indent);
+
+            return outText.ToString();
         }
     }
 
@@ -54,6 +63,10 @@ namespace Kohoutech.Jason
         public virtual Object build()
         {
             return null;
+        }
+
+        public virtual void write(StringBuilder outText, String indent)
+        {
         }
     }
 
@@ -123,6 +136,26 @@ namespace Kohoutech.Jason
 
             return obj;
         }
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            String indent2 = indent + "  ";
+            outText.Append("{\r\n" + indent2);
+            List<String> fields = new List<String>(members.Keys);
+            int idx = 1;
+            foreach (String fieldname in fields)
+            {
+                outText.Append("\"" + fieldname + "\": ");
+                JasonValue val = members[fieldname];
+                val.write(outText, indent2);
+                if (idx < fields.Count)
+                {
+                    outText.Append(",\r\n" + indent2);
+                    idx++;
+                }
+            }
+            outText.Append("\r\n" + indent + "}");
+        }
     }
 
     public class JasonArray : JasonValue
@@ -144,6 +177,30 @@ namespace Kohoutech.Jason
             }
             return vals;
         }
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            if (elements.Count == 0)
+            {
+                outText.Append("[]");
+            }
+            else
+            {
+                String indent2 = indent + "  ";
+                outText.Append("[\r\n" + indent2);
+                int idx = 1;
+                foreach (JasonValue elem in elements)
+                {
+                    elem.write(outText, indent2);
+                    if (idx < elements.Count)
+                    {
+                        outText.Append(",\r\n" + indent2);
+                        idx++;
+                    }
+                }
+                outText.Append("\r\n" + indent + "]");
+            }
+        }
     }
 
     public class JasonString : JasonValue
@@ -158,6 +215,23 @@ namespace Kohoutech.Jason
         public override Object build()
         {
             return str;
+        }
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            outText.Append("\"");
+            foreach (char c in str)
+            {
+                switch(c)
+                {
+                    case '\\' : outText.Append("\\\\"); break;
+                    
+                    default:
+                        outText.Append(c);
+                        break;
+                }
+            }
+            outText.Append("\"");
         }
     }
 
@@ -183,6 +257,11 @@ namespace Kohoutech.Jason
                 return i;
             }
         }
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            outText.Append(num);
+        }
     }
 
     public class JasonBoolean : JasonValue
@@ -198,6 +277,11 @@ namespace Kohoutech.Jason
         {
             return val;
         }
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            outText.Append(val ? "true" : "false");
+        }
     }
 
     public class JasonNull : JasonValue
@@ -207,5 +291,10 @@ namespace Kohoutech.Jason
         }
 
         //don't need to override build method
+
+        public override void write(StringBuilder outText, String indent)
+        {
+            outText.Append("null");
+        }
     }
 }

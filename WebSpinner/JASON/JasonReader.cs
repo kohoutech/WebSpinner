@@ -33,7 +33,7 @@ namespace Kohoutech.Jason
         {
         }
 
-        public Object readFrom(String jasonData)
+        public Object deserialize(String jasonData)
         {
             JasonData jd = parseData(jasonData);
 
@@ -45,26 +45,51 @@ namespace Kohoutech.Jason
 
         String jasonStr;
         int pos;
+        int linenum;
+        int linepos;
 
         public JasonData parseData(string _jasonStr)
         {
             jasonStr = _jasonStr;
             pos = 0;
+            linenum = 1;
+            linepos = 0;
             JasonValue root = parseValue();
             return new JasonData(root);
         }
 
-        public void skipWhiteSpace()
-        {
-            while (pos < jasonStr.Length &&
-                (jasonStr[pos] == ' ' || jasonStr[pos] == '\r' || jasonStr[pos] == '\n' || jasonStr[pos] == '\t'))
-                pos++;
-        }
-
         public JasonValue parseValue()
         {
-            JasonValue val = null;
             skipWhiteSpace();
+            if (pos == jasonStr.Length)
+            {
+                throw new JasonReadException("unexpected end of file", linenum, pos - linepos);
+            }
+
+            //parse literals first
+            if (pos < jasonStr.Length - 4)
+            {
+                if (jasonStr[pos] == 't' && jasonStr[pos + 1] == 'r' && jasonStr[pos + 2] == 'u' && jasonStr[pos + 3] == 'e')
+                {
+                    pos += 4;
+                    return new JasonBoolean(true);
+                }
+                if (jasonStr[pos] == 'n' && jasonStr[pos + 1] == 'u' && jasonStr[pos + 2] == 'l' && jasonStr[pos + 3] == 'l')
+                {
+                    pos += 4;
+                    return new JasonNull();
+                }
+            }
+            if (pos < jasonStr.Length - 5)
+            {
+                if (jasonStr[pos] == 'f' && jasonStr[pos + 1] == 'a' && jasonStr[pos + 2] == 'l' && jasonStr[pos + 3] == 's' && jasonStr[pos + 4] == 'e')
+                {
+                    pos += 5;
+                    return new JasonBoolean(false);
+                }
+            }
+
+            JasonValue val = null;
             switch (jasonStr[pos])
             {
                 case '{':
@@ -76,7 +101,7 @@ namespace Kohoutech.Jason
                     break;
 
                 case '\"':
-                    val = parseStringValue();
+                    val = new JasonString(parseString());
                     break;
 
                 case '-':
@@ -90,87 +115,88 @@ namespace Kohoutech.Jason
                 case '7':
                 case '8':
                 case '9':
-                    val = parseNumber();
+                    val = new JasonNumber(parseNumber());
                     break;
 
                 default:
-                    throw new JasonReadException("illegal value starting char " + jasonStr[pos]);
+                    throw new JasonReadException("illegal char " + jasonStr[pos], linenum, pos - linepos);
                     break;
             }
-            skipWhiteSpace();
             return val;
         }
 
         public JasonObject parseObject()
         {
             JasonObject obj = new JasonObject();
-            pos++;                                      //skip opening delim
-            skipWhiteSpace();
+            pos++;                                  //skip opening delim
 
-            bool done = (jasonStr[pos] == '}');
-            while (!done)
+            skipWhiteSpace();
+            if (pos < jasonStr.Length && jasonStr[pos] == '}')
             {
-                String str = parseString();                
+                pos++;
+                return obj;
+            }
+
+            do
+            {
                 skipWhiteSpace();
-                if (jasonStr[pos++] != ':')             
-                    throw new JasonReadException("missing : separator");
+                String str = parseString();
+                skipWhiteSpace();
+                if (pos == jasonStr.Length || jasonStr[pos++] != ':')
+                    throw new JasonReadException("missing : separator", linenum, pos - linepos);
                 JasonValue val = parseValue();
 
                 obj.members[str] = val;
 
-                if (jasonStr[pos] != ','  && jasonStr[pos] != '}')
-                    throw new JasonReadException("missing , or } delimiter");
-                done = (jasonStr[pos] == '}') ;
-                if (!done)
-                {
-                    pos++;                  //skip ',' separator
-                    skipWhiteSpace();
-                }
+                skipWhiteSpace();
+                if (pos == jasonStr.Length || (jasonStr[pos] != ',' && jasonStr[pos] != '}'))
+                    throw new JasonReadException("missing , or } delimiter", linenum, pos - linepos);
             }
-            pos++;                  //skip closing delim
+            while (jasonStr[pos++] == ',');
             return obj;
         }
 
         public JasonArray parseArray()
         {
             JasonArray arr = new JasonArray();
-            pos++;                                  //skip opening delim
+            pos++;                              //slip opening delim
+
             skipWhiteSpace();
-            bool done = (jasonStr[pos] == ']');
-            while (!done)
+            if (pos < jasonStr.Length && jasonStr[pos] == ']')
             {
+                pos++;
+                return arr;
+            }
+            
+            do
+            {
+                skipWhiteSpace();
                 JasonValue elem = parseValue();
                 arr.elements.Add(elem);
 
-                done = (jasonStr[pos] == ']');
-                if (!done)
-                {
-                    pos++;          //skip ',' separator
-                }
-            } 
-            pos++;                  //skip closing delim
+                skipWhiteSpace();
+                if (pos == jasonStr.Length || (jasonStr[pos] != ',' && jasonStr[pos] != ']'))
+                    throw new JasonReadException("missing , or ] delimiter", linenum, pos - linepos);
+            }
+            while (jasonStr[pos++] == ',');
             return arr;
         }
 
-        public JasonValue parseStringValue()
+        public void skipWhiteSpace()
         {
-            String str = parseString();
-            if ("true".Equals(str))
+            while (pos < jasonStr.Length &&
+                (jasonStr[pos] == ' ' || jasonStr[pos] == '\r' || jasonStr[pos] == '\n' || jasonStr[pos] == '\t'))
             {
-                return new JasonBoolean(true);
+                if (jasonStr[pos] == '\n')
+                {
+                    linenum++;
+                    linepos = pos;
+                }
+                pos++;
             }
-            if ("false".Equals(str))
-            {
-                return new JasonBoolean(false);
-            }
-            if ("null".Equals(str))
-            {
-                return new JasonNull();
-            }
-            return new JasonString(str);
         }
 
-        public JasonNumber parseNumber()
+        public String parseNumber()
         {
             StringBuilder numstr = new StringBuilder();
             char ch = jasonStr[pos];
@@ -187,17 +213,25 @@ namespace Kohoutech.Jason
             }
             else if (ch >= '1' && ch <= '9')
             {
-                while (ch >= '0' && ch <= '9') 
+                while (ch >= '0' && ch <= '9')
                 {
                     numstr.Append(ch);
                     ch = jasonStr[++pos];
-                } 
+                }
+            }
+            else
+            {
+                throw new JasonReadException("illegal char in numeric literal " + jasonStr[pos], linenum, pos - linepos);
             }
 
             if (ch == '.')
             {
                 numstr.Append(ch);
                 ch = jasonStr[++pos];
+                if (ch < '0' || ch > '9')
+                {
+                    throw new JasonReadException("illegal char in numeric fraction " + jasonStr[pos], linenum, pos - linepos);
+                }
                 while (ch >= '0' && ch <= '9')
                 {
                     numstr.Append(ch);
@@ -214,6 +248,10 @@ namespace Kohoutech.Jason
                     numstr.Append(ch);
                     ch = jasonStr[++pos];
                 }
+                if (ch < '0' || ch > '9')
+                {
+                    throw new JasonReadException("illegal char in numeric exponent " + jasonStr[pos], linenum, pos - linepos);
+                }
                 while (ch >= '0' && ch <= '9')
                 {
                     numstr.Append(ch);
@@ -221,7 +259,7 @@ namespace Kohoutech.Jason
                 }
             }
 
-            return new JasonNumber(numstr.ToString());
+            return numstr.ToString();
         }
 
         public String parseString()
@@ -258,14 +296,14 @@ namespace Kohoutech.Jason
                                     else if (hex >= 'a' && hex <= 'f')
                                         val = hex - 'a';
                                     else
-                                        throw new JasonReadException("illegal char " + hex + " in hexadecimal string constant");
+                                        throw new JasonReadException("illegal char " + hex + " in hexadecimal string constant", linenum, pos - linepos);
                                     sum = sum * 10 + val;
                                 }
                                 ch = (char)sum;
                             }
                             break;
                         default:
-                            throw new JasonReadException("illegal escape char " + ch2 + " in string constant");
+                            throw new JasonReadException("illegal escape char " + ch2 + " in string constant", linenum, pos - linepos);
                             break;
                     };
                 }
@@ -281,8 +319,13 @@ namespace Kohoutech.Jason
 
     public class JasonReadException : Exception
     {
-        public JasonReadException(String reason) : base(reason)
+        int line;
+        int pos;
+
+        public JasonReadException(String reason, int _line, int _pos) : base(reason)
         {
+            line = _line;
+            pos = _pos;
         }
     }
 }

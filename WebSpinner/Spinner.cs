@@ -26,6 +26,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
+using WebSpinner.SiteView;
 using WebSpinner.Silk;
 using VDG;
 using Kohoutech.Jason;
@@ -35,7 +36,7 @@ namespace WebSpinner
     public class Spinner
     {
         public SpinnerWindow spinnerWindow;
-        public WebsiteTree siteTree;           //the view
+        public WebSiteTree siteTree;           //the view
         public WebSite website;                //the model
         public Vander generator;
 
@@ -46,9 +47,6 @@ namespace WebSpinner
             generator = new Vander();
             //website = null;
             website = new WebSite();
-
-            JasonWriter jason = new JasonWriter();
-            String s = jason.Write(website);
         }
 
         //- website i/o -------------------------------------------------------
@@ -57,9 +55,17 @@ namespace WebSpinner
         {
             String jasonData = File.ReadAllText(filename);
             JasonReader reader = new JasonReader();
-            website = (WebSite)reader.readFrom(jasonData);
+            website = (WebSite)reader.deserialize(jasonData);
             siteTree.setWebsite(website);
         }
+
+        public void saveSilk(string filename)
+        {
+            JasonWriter writer = new JasonWriter();
+            String jasonData = writer.serialize(website);
+            File.WriteAllText(filename, jasonData);
+        }
+
 
         //- website deployment ------------------------------------------------
 

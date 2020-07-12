@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpinnerWindow));
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.spinnerStatus = new System.Windows.Forms.StatusStrip();
+            this.spinnerMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +52,7 @@
             this.publishWebsiteMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.spinnerToolBar = new System.Windows.Forms.ToolStrip();
             this.openFileButton = new System.Windows.Forms.ToolStripButton();
             this.saveFileButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,32 +60,32 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.siteTree = new WebSpinner.WebsiteTree();
+            this.siteTree = new WebSpinner.SiteView.WebSiteTree();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.spinnerMenu.SuspendLayout();
+            this.spinnerToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // spinnerStatus
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.spinnerStatus.Location = new System.Drawing.Point(0, 428);
+            this.spinnerStatus.Name = "spinnerStatus";
+            this.spinnerStatus.Size = new System.Drawing.Size(800, 22);
+            this.spinnerStatus.TabIndex = 0;
+            this.spinnerStatus.Text = "statusStrip1";
             // 
-            // menuStrip1
+            // spinnerMenu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spinnerMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenuItem,
             this.pageMenuItem,
             this.websiteMenuItem,
             this.helpMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.spinnerMenu.Location = new System.Drawing.Point(0, 0);
+            this.spinnerMenu.Name = "spinnerMenu";
+            this.spinnerMenu.Size = new System.Drawing.Size(800, 24);
+            this.spinnerMenu.TabIndex = 1;
+            this.spinnerMenu.Text = "menuStrip1";
             // 
             // fileMenuItem
             // 
@@ -254,9 +254,9 @@
             this.aboutHelpMenuItem.Text = "&About...";
             this.aboutHelpMenuItem.Click += new System.EventHandler(this.aboutHelpMenuItem_Click);
             // 
-            // toolStrip1
+            // spinnerToolBar
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spinnerToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileButton,
             this.saveFileButton,
             this.toolStripSeparator6,
@@ -264,11 +264,11 @@
             this.toolStripSeparator7,
             this.toolStripButton1,
             this.toolStripButton2});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
+            this.spinnerToolBar.Location = new System.Drawing.Point(0, 24);
+            this.spinnerToolBar.Name = "spinnerToolBar";
+            this.spinnerToolBar.Size = new System.Drawing.Size(800, 25);
+            this.spinnerToolBar.TabIndex = 2;
+            this.spinnerToolBar.Text = "toolStrip1";
             // 
             // openFileButton
             // 
@@ -343,6 +343,7 @@
             this.siteTree.Location = new System.Drawing.Point(0, 49);
             this.siteTree.Name = "siteTree";
             this.siteTree.SelectedImageIndex = 0;
+            this.siteTree.ShowRootLines = false;
             this.siteTree.Size = new System.Drawing.Size(800, 379);
             this.siteTree.TabIndex = 3;
             // 
@@ -361,17 +362,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.siteTree);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.spinnerToolBar);
+            this.Controls.Add(this.spinnerStatus);
+            this.Controls.Add(this.spinnerMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.spinnerMenu;
             this.Name = "SpinnerWindow";
             this.Text = "WebSpinner";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.spinnerMenu.ResumeLayout(false);
+            this.spinnerMenu.PerformLayout();
+            this.spinnerToolBar.ResumeLayout(false);
+            this.spinnerToolBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,8 +380,8 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.StatusStrip spinnerStatus;
+        private System.Windows.Forms.MenuStrip spinnerMenu;
         private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileMenuItem;
@@ -400,7 +401,7 @@
         private System.Windows.Forms.ToolStripMenuItem buildWebsiteMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutHelpMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip spinnerToolBar;
         private System.Windows.Forms.ToolStripButton newPageButton;
         private System.Windows.Forms.ToolStripButton openFileButton;
         private System.Windows.Forms.ToolStripButton saveFileButton;
@@ -409,7 +410,7 @@
         private System.Windows.Forms.ToolStripMenuItem publishWebsiteMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
-        public WebsiteTree siteTree;
+        public WebSpinner.SiteView.WebSiteTree siteTree;
         private System.Windows.Forms.ImageList imageList;
     }
 }
