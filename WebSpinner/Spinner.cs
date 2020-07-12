@@ -34,13 +34,15 @@ namespace WebSpinner
 {
     public class Spinner
     {
-        public SpinnerWindow spinnerView;           //the view
+        public SpinnerWindow spinnerWindow;
+        public WebsiteTree siteTree;           //the view
+        public WebSite website;                //the model
         public Vander generator;
-        public WebSite website;                     //the model
 
         public Spinner(SpinnerWindow _spinnerWindow)
         {
-            spinnerView = _spinnerWindow;
+            spinnerWindow = _spinnerWindow;
+            siteTree = spinnerWindow.siteTree;
             generator = new Vander();
             //website = null;
             website = new WebSite();
@@ -56,27 +58,7 @@ namespace WebSpinner
             String jasonData = File.ReadAllText(filename);
             JasonReader reader = new JasonReader();
             website = (WebSite)reader.readFrom(jasonData);
-            TreeNode rootfolderView = spinnerView.AddFolder(website.root, null);
-            buildSiteView(website.root, rootfolderView);
-        }
-
-        public void buildSiteView(WebFolder folder, TreeNode folderView)
-        {
-            foreach (WebPage page in folder.pages)
-            {
-                spinnerView.AddPage(page, folderView);
-            }
-
-            foreach (WebResource resource in folder.resources)
-            {
-                spinnerView.AddResources(resource, folderView);
-            }
-
-            foreach (WebFolder f in folder.folders)
-            {
-                TreeNode subfolderView = spinnerView.AddFolder(f, folderView);
-                buildSiteView(f, subfolderView);
-            }
+            siteTree.setWebsite(website);
         }
 
         //- website deployment ------------------------------------------------
@@ -114,8 +96,8 @@ namespace WebSpinner
 
             foreach (WebResource resource in folder.resources)
             {
-                string srcpath = resource.filepath + "\\" + resource.filename;
-                string respath = destpath + "\\" + resource.filename;
+                string srcpath = resource.sourcePath + "\\" + resource.name;
+                string respath = destpath + "\\" + resource.name;
                 File.Copy(srcpath, respath, true);
             }
 

@@ -30,6 +30,9 @@ namespace WebSpinner.Silk
     public class WebSite
     {
         public String version;
+
+        public String name;
+        public String URL;
         public String buildPath;
         public String publishPath;
         public WebFolder root;
@@ -37,26 +40,12 @@ namespace WebSpinner.Silk
         public WebSite()
         {
             version = "1.0.0";
+
+            name = "untitled";
+            URL = "";
             buildPath = @"c:\foo\bar";
             publishPath = @"c:\zon\tar";
-            root = null;
+            root = new WebFolder("root", null);
         }
-
-        //public static WebSite loadSilkFile(string filename)
-        //{
-        //    WebSite site = new WebSite();
-
-        //    site.silkroot = Path.GetDirectoryName(filename);
-        //    EnamlData silk = EnamlData.loadFromFile(filename);
-
-        //    site.version = silk.getStringValue("Silk.version", "");
-        //    site.buildPath = silk.getStringValue("Silk.devroot", "");
-        //    site.publishPath = silk.getStringValue("Silk.prodroot", "");
-
-        //    site.root = WebFolder.loadFolder(silk, "", "root", null);
-
-        //    return site;
-        //}
-
     }
 }

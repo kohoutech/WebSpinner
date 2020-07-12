@@ -29,9 +29,9 @@ namespace WebSpinner.Silk
 {
     public class WebResource
     {
+        public string name;
         public WebFolder folder;
-        public string filename;
-        public String filepath;
+        public String sourcePath;
 
         public WebResource() : this("none", null, "")
         {
@@ -39,23 +39,14 @@ namespace WebSpinner.Silk
 
         public WebResource(String _name, WebFolder _folder, String _path)
         {
-            filename = _name;
-            filepath = _path;
+            name = _name;
             folder = _folder;
+            sourcePath = _path;
         }
-
-        //public static WebResource loadResource(EnamlData silk, string path, string name, WebFolder folder)
-        //{
-        //    String respath = silk.getStringValue(path + "." + name + ".path", "");
-        //    String resname = Path.GetFileName(respath);
-        //    respath = Path.GetDirectoryName(respath);
-        //    WebResource resource = new WebResource(resname, respath, folder);
-        //    return resource;
-        //}
 
         public override string ToString()
         {
-            return filename;
+            return name;
         }
     }
 }

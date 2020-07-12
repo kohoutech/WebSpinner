@@ -36,24 +36,13 @@ namespace WebSpinner.Silk
         {
         }
 
-            public WebPage(String _name, WebFolder _folder, String _template, String _content)
+        public WebPage(String _name, WebFolder _folder, String _template, String _content)
         {
             name = _name;
             folder = _folder;
             template = _template;
             content = _content;
         }
-
-        //public static WebPage loadPage(EnamlData silk, string path, string name, WebFolder folder)
-        //{
-        //    String fullpath = path + "." + name;
-        //    String html = silk.getStringValue(fullpath + ".html", "");
-        //    String template = silk.getStringValue(fullpath + ".template", "");
-        //    String content = silk.getStringValue(fullpath + ".content", "");
-
-        //    WebPage page = new WebPage(html, folder, template, content);
-        //    return page;
-        //}
 
         public override string ToString()
         {

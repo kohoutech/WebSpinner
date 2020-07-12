@@ -118,49 +118,6 @@ namespace WebSpinner
             String msg = "WebSpinner\nversion 1.1.0\n" + "\xA9 Panorama Software 2005-2020\n" + "http://panorama.kohoutech.com";
             MessageBox.Show(msg, "About");
         }
-
-        //- tree view ---------------------------------------------------------
-
-        public TreeNode AddFolder(WebFolder folder, TreeNode folderView)
-        {
-            TreeNode node = new TreeNode(folder.name);
-            node.Tag = folder;
-            node.ForeColor = Color.Blue;
-            if (folderView == null)
-            {
-                siteTreeView.Nodes.Add(node);
-            }
-            else
-            {
-                folderView.Nodes.Add(node);
-            }
-            return node;
-        }
-
-        public void AddPage(WebPage page, TreeNode folderView)
-        {
-            TreeNode node = new TreeNode(page.name);
-            node.Tag = page;
-            folderView.Nodes.Add(node);
-        }
-
-        public void AddResources(WebResource resource, TreeNode folderView)
-        {
-            TreeNode node = new TreeNode(resource.filename);
-            node.Tag = resource;
-            node.ForeColor = Color.Red;
-            folderView.Nodes.Add(node);
-        }
-
-        private void siteTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-        }
-
-        private void siteTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-        }
     }
 
 }

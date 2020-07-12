@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>WebSpinner.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -68,6 +69,9 @@
     <Compile Include="VDG\Commands\DateCmd.cs" />
     <Compile Include="VDG\Symbol.cs" />
     <Compile Include="VDG\Vander.cs" />
+    <Compile Include="WebsiteTree.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -91,7 +95,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebSpinner.ico" />
+    <Content Include="graphics\foldericon.png" />
+    <Content Include="graphics\pageicon.png" />
+    <Content Include="graphics\resicon.png" />
+    <Content Include="graphics\siteicon.png" />
+    <Content Include="graphics\WebSpinner.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
